@@ -2,7 +2,7 @@ function register(){
     return new Promise((resolve,reject)=>{      
           setTimeout(()=>{
          console.log("Registered..")
-         reject(console.log("Error: Cannot login"))
+         resolve()
     }, 7000)
     })
 }
@@ -31,8 +31,19 @@ function DisplayData(){
     },8000)
     })
 }
-    register().then(login).then(fetchData).then(DisplayData).catch((err)=>{
-        console.log("An Error ocurred...",err);
-    })
+
+async function test(){
+    try{
+        await register();
+        await login();
+        await fetchData();
+        await DisplayData();
+    }
+    catch(err){
+        console.log("Error Ocurred..", err)
+    }
+}
+test();
+
 console.log("Calling another app..")
 
