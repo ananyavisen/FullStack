@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetches.com</title>
+
+    <script>
+        const URL= "https://dummyjson.com/products"
+        async function loadProduct(){
+            try{
+                const res = await fetch(URL)
+                const data = await res.json()
+                 let db = document.getElementById("db");
+                console.log("res =  ", data.products)
+                 data.products.map((i)=>{
+                    console.log(i.title)
+            db.innerHTML += 
+            `<tr>
+                <td>${i.title}</td>
+                <td>${i.category}</td>
+                <td>${i.price}</td>
+                <td>${i.rating}</td>
+            </tr>  `
+
+        })
+            }
+            catch(err){
+                console.log("Error: ", err)
+            }
+        }
+        loadProduct();
+
+    </script>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody id="db">
+        </tbody>
+    </table>
+</body>
+</html>
