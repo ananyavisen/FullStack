@@ -6,45 +6,110 @@
     <title>Fetches.com</title>
 
     <script>
-        const URL= "https://dummyjson.com/products"
-        async function loadProduct(){
-            try{
-                const res = await fetch(URL)
-                const data = await res.json()
-                 let db = document.getElementById("db");
-                console.log("res =  ", data.products)
-                 data.products.map((i)=>{
-                    console.log(i.title)
-            db.innerHTML += 
-            `<tr>
-                <td>${i.title}</td>
-                <td>${i.category}</td>
-                <td>${i.price}</td>
-                <td>${i.rating}</td>
-            </tr>  `
+        const URL = "https://dummyjson.com/products";
+        const api = "https://open.er-api.com/v6/latest/USD";
 
-        })
+        const cartList = [];
+        let clickCounts = [];
+        async function getExchangeRate() {
+            try {
+                const res = await fetch(api);
+                const data = await res.json();
+
+                return data.rates.INR;
             }
-            catch(err){
-                console.log("Error: ", err)
+            catch (err) {
+                console.log("Error: ", err);
             }
         }
-        loadProduct();
+
+        function addToCart(idx, title, price) {
+             clickCounts[idx] = (clickCounts[idx] || 0) + 1;
+             const ele = document.getElementById(`count-${idx}`);
+             ele.innerHTML = clickCounts[idx];
+
+            const product = [
+                 idx,
+               title,
+                price
+            ];
+
+            cartList.push(product[1]);
+            console.log(cartList)
+        }
+
+        async function loadProduct(rate) {
+
+            try {
+                const res = await fetch(URL);
+                const data = await res.json();
+
+                const db = document.getElementById("db");
+                
+                data.products.map((i, index) => {
+                    let count=0
+                    db.innerHTML +=
+                    `<tr>
+                        <td>${index + 1}</td>
+                        <td>${i.title}</td>
+                        <td>
+                            <img src="${i.images[0]}" width="100px" height="100px">
+                        </td>
+                        <td>${i.category}</td>
+                        <td>₹${(i.price * rate).toFixed(2)}</td>
+                        <td>${i.rating}</td>
+                        <td><center>
+                            <button onclick="addToCart(${index}, '${i.title}', ${i.price})">
+                                + 
+                            </button> <span id="count-${index}">0</span>
+                        </td></center>
+                    </tr>`;
+                });
+            }
+            catch (err) {
+                console.log("Error: ", err);
+            }
+        }
+
+        async function init() {
+
+            const rate = await getExchangeRate();
+
+            await loadProduct(rate);
+        }
+        function PlaceOrder(){
+            console.log("Order Placed Succesfully! Here is What you ordered:", cartList)
+            summary = document.getElementById("placed");
+            summary.innerHTML = `Order Placed Succesfully! Here is What you ordered: <p> ${cartList} </p>`
+        }
+        init();
 
     </script>
 </head>
+
 <body>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Rating</th>
-            </tr>
-        </thead>
-        <tbody id="db">
-        </tbody>
-    </table>
+    <center>
+         <button onclick="PlaceOrder()">Place Order</button>
+         <p id="placed"></p>
+        <table border="1">
+
+            <thead>
+                <tr>
+                    <th>S. No</th>
+                    <th>Title</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Rating</th>
+                    <th>Add to Cart</th>
+                </tr>
+            </thead>
+
+            <tbody id="db">
+            </tbody>
+
+        </table>
+    </center>
+
 </body>
 </html>
