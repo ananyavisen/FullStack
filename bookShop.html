@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop</title>
+<style>
+    .box{
+        height: 250px;
+        width: 170px;
+        background-color: burlywood;
+        padding: 1em;
+        border-radius: 15px ;
+        display: inline-flex;
+       
+    }
+    #image{
+        margin:auto;
+    }
+</style>
+<script src="./bookShop.js"></script>
+</head>
+<body>
+    <div class="box" id="box">
+        <center>
+        <img id="image" src="https://blog-cdn.reedsy.com/directories/gallery/248/large_65b0ae90317f7596d6f95bfdd6131398.jpg" height="180px" width="150" />
+        <p>Price: ₹499</p>
+        <button onclick="addToCart(499)">Add to cart</button>
+        </center>
+    </div>
+    <div class="box" id="box">
+        <center>
+        <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVUGorE63c_rUTcCSajpln8sNTLGy4lqAmrGHnblrP-WfxoN-5gV4XDT6n&s=10" height="180px" width="150" />
+        <p>Price: ₹799</p>
+        <button onclick="addToCart(799)">Add to cart</button>
+        </center>
+    </div>
+     <div class="box" id="box">
+        <center>
+        <img id="image" src="https://s26162.pcdn.co/wp-content/uploads/2025/05/flashlight.png" height="180px" width="150" />
+        <p>Price: ₹349</p>
+        <button onclick="addToCart(349)">Add to cart</button>
+        </center>
+    </div>
+     <div class="box" id="box">
+        <center>
+        <img id="image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZPPCWFShQlodeNv9KWWNSHQtRWRHCoQXF9URJeLcfEsi6MDGE2r_TViY&s=10" height="180px" width="150" />
+        <p>Price: ₹599</p>
+        <button onclick="addToCart(599)">Add to cart</button>
+        </center>
+    </div>
+    <div class="cart">
+        <h1>Your Billing Cart:</h1>
+        <p id="billing"></p>
+         <button onclick="bill()"> Final Bill </button>
+         <p id="bill"><b></b></p>
+    </div>
+</body>
+</html>
