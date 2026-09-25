@@ -1,0 +1,25 @@
+ul, li{
+    display: flex;
+    padding: 1em;
+    justify-content: space-evenly;
+}
+a{
+    text-decoration: none;
+}
+items{  
+    gap: 20px;
+}
+.item{
+    margin-top:10px;
+     display: flex;
+     flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 240px;
+    height: 320px;
+    border: 2px solid red;
+    padding: 15px;
+    border-radius: 10px;
+    gap:8px;
+
+}
